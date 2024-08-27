@@ -1,0 +1,29 @@
+<div class="search-container">
+  <input
+    type="search"
+    placeholder="Search for a user"
+    [(ngModel)]="searchTerm"
+    (keyup)="search()"
+    class="search-input"
+  />
+  <button (click)="toggleCreationForm()" class="btn btn-add">Add</button>
+</div>
+<br /><br />
+
+<div *ngIf="showCreationForm" class="creation-form">
+  <form (ngSubmit)="addUser()">
+    <label for="name">Name:</label>
+    <input id="name" [(ngModel)]="newUser.Name" name="name" required />
+
+    <label for="email">Email:</label>
+    <input id="email" [(ngModel)]="newUser.Email" name="email" required />
+
+    <button type="submit" class="btn btn-save">Save</button>
+  </form>
+</div>
+
+<div class="user-list">
+  <div *ngFor="let user of filteredUsers">
+    <app-user [user]="user"></app-user>
+  </div>
+</div>

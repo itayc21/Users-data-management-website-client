@@ -1,0 +1,114 @@
+<div class="container">
+  <div class="user-card">
+    <div *ngIf="user" class="user-info">
+      <p class="user-id">ID: {{ user.ID }}</p>
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <p>{{ user.Name }}</p>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <p>{{ user.Email }}</p>
+      </div>
+    </div>
+
+    <div *ngIf="showOtherData && user" class="other-data">
+      <div class="form-group">
+        <label for="street">Street:</label>
+        <p>{{ user.Street }}</p>
+      </div>
+      <div class="form-group">
+        <label for="city">City:</label>
+        <p>{{ user.City }}</p>
+      </div>
+      <div class="form-group">
+        <label for="zipcode">Zip Code:</label>
+        <p>{{ user.Zipcode }}</p>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button class="btn btn-toggle" (click)="toggleOtherData()">
+        {{ showOtherData ? "Close" : "Other Data" }}
+      </button>
+      <button class="btn" (click)="toggleTodos()">Todos</button>
+      <button class="btn" (click)="togglePosts()">Posts</button>
+      <button class="btn btn-update" (click)="toggleUpdateForm()">
+        Update
+      </button>
+      <button (click)="confirmDelete()" class="btn btn-delete">Delete</button>
+    </div>
+
+    <div *ngIf="showUpdateForm && user" class="update-form">
+      <h3>Update User Details</h3>
+      <form (ngSubmit)="updateUser()">
+        <div class="form-group">
+          <label for="update-name">Name:</label>
+          <input
+            id="update-name"
+            type="text"
+            [(ngModel)]="user.Name"
+            name="name"
+            class="form-control"
+          />
+        </div>
+        <div class="form-group">
+          <label for="update-email">Email:</label>
+          <input
+            id="update-email"
+            type="text"
+            [(ngModel)]="user.Email"
+            name="email"
+            class="form-control"
+          />
+        </div>
+        <div class="form-group">
+          <label for="update-street">Street:</label>
+          <input
+            id="update-street"
+            type="text"
+            [(ngModel)]="user.Street"
+            name="street"
+            class="form-control"
+          />
+        </div>
+        <div class="form-group">
+          <label for="update-city">City:</label>
+          <input
+            id="update-city"
+            type="text"
+            [(ngModel)]="user.City"
+            name="city"
+            class="form-control"
+          />
+        </div>
+        <div class="form-group">
+          <label for="update-zipcode">Zip Code:</label>
+          <input
+            id="update-zipcode"
+            type="text"
+            [(ngModel)]="user.Zipcode"
+            name="zipcode"
+            class="form-control"
+          />
+        </div>
+        <button type="submit" class="btn btn-update">Update</button>
+        <button
+          type="button"
+          (click)="toggleUpdateForm()"
+          class="btn btn-cancel"
+        >
+          Cancel
+        </button>
+      </form>
+    </div>
+
+    <div *ngIf="showTodos" class="todos-container">
+      <app-todos [user]="user" [mark]="true"></app-todos>
+    </div>
+
+    <div *ngIf="showPosts" class="posts-container">
+      <app-posts [user]="user"></app-posts>
+    </div>
+  </div>
+</div>

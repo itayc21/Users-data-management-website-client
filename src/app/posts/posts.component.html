@@ -1,0 +1,37 @@
+<div *ngIf="user" class="posts-section">
+    <h3>Posts for {{ user.Name }}</h3>
+  
+    <button
+      *ngIf="!showAddPostForm"
+      (click)="toggleAddPostForm()"
+      class="add-btn"
+    >
+      Add
+    </button>
+  
+    <div *ngIf="showAddPostForm" class="add-post-form">
+      <h4>Add New Post</h4>
+      <label>
+        Title:
+        <input type="text" [(ngModel)]="newPostTitle" />
+      </label>
+      <label>
+        Body:
+        <textarea [(ngModel)]="newPostBody"></textarea>
+      </label>
+      <div class="form-actions">
+        <button (click)="addPost()">Save</button>
+        <button (click)="toggleAddPostForm()">Cancel</button>
+      </div>
+    </div>
+  
+    <div *ngIf="!showAddPostForm">
+      <div *ngFor="let post of user.Posts" class="post">
+        <div class="post-content">
+          <div class="post-title">Title: {{ post.Title }}</div>
+          <div class="post-body">Body: {{ post.Body }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

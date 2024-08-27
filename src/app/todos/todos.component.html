@@ -1,0 +1,49 @@
+<div *ngIf="user" class="todos-section">
+  <h3>Todos for {{ user.Name }}</h3>
+
+  <button
+    *ngIf="!showAddTaskForm"
+    (click)="toggleAddTaskForm()"
+    class="add-btn"
+  >
+    Add
+  </button>
+
+  <div *ngIf="showAddTaskForm" class="add-task-form">
+    <h4>Add New Todo</h4>
+    <label>
+      Title:
+      <input type="text" [(ngModel)]="newTaskTitle" />
+    </label>
+    <div class="form-actions">
+      <button (click)="addTask()">Save</button>
+      <button (click)="toggleAddTaskForm()">Cancel</button>
+    </div>
+  </div>
+
+  <div *ngIf="!showAddTaskForm">
+    <div *ngFor="let task of user.Tasks" class="task">
+      <div class="task-content">
+        <div class="task-title">Title: {{ task.Title }}</div>
+        <div class="task-status">
+          Completed:
+          <span
+            [ngClass]="{
+              completed: task.Completed,
+              'not-completed': !task.Completed
+            }"
+          >
+            {{ task.Completed ? "Yes" : "No" }}
+          </span>
+        </div>
+      </div>
+      <button
+        (click)="markCompleted(task.ID)"
+        *ngIf="!task.Completed && mark"
+        class="mark-btn"
+      >
+        Mark Completed
+      </button>
+    </div>
+  </div>
+</div>
